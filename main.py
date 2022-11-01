@@ -11,7 +11,9 @@ import FirstsYFollows.FirstsYFollows_test as fyfTest
 def main():
   print("Choose a module:")
   choice = int(input("1. Terminales y no terminales\n2. Firsts y follows\n"))
+  print()
   test = int(input("1. Main\n2. Test\n")) != 2
+  print()
 
   if choice == 1:
     sys.path.append('TerminalesYNoTerminales')

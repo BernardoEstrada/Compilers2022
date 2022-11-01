@@ -6,6 +6,7 @@
 import os
 from sys import argv
 import TerminalesYNoTerminales.TerminalesYNoTerminales as tnt
+import Utils.SplitRows as sr
 NUMBER_OF_TESTS = 5
 
 def runSingleTest(i: int):
@@ -22,6 +23,7 @@ def runSingleTest(i: int):
     expected = f.read().strip().splitlines()
 
   [terminal, nonTerminal] = tnt.parseTerminalsAndNonTerminals(lines)
+  terminal = [x for x in terminal if x != sr.EPSILON]
 
   expectedTerminal = expected[0].split(': ')[1].split(', ')
   expectedNonTerminal = expected[1].split(': ')[1].split(', ')
