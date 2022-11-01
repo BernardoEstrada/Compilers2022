@@ -5,7 +5,7 @@
 
 import os
 from sys import argv
-import FirstsYFollows as ff
+import FirstsYFollows.FirstsYFollows as ff
 import re
 NUMBER_OF_TESTS = 5
 
@@ -64,10 +64,12 @@ def runSingleTest(i: int):
     print("  Expected:", expected)
     print("  Output:  ", result)
 
-
-if __name__ == "__main__":
+def test():
   if (len(argv) == 2 and argv[1].isdigit()):
     runSingleTest(int(argv[1]))
   else:
     for i in range(1, NUMBER_OF_TESTS + 1):
       runSingleTest(i)
+
+if __name__ == "__main__":
+  test()

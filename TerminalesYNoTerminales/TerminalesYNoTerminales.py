@@ -13,11 +13,7 @@
 # Terminal: +, *, (, ), id
 # Non terminal: E, EPrime, T, TPrime, F
 
-import sys
 from typing import List
-
-sys.path.append('.')
-
 import Utils.SplitRows as sr
 
 def parseTerminalsAndNonTerminals(rows: List[str]):
@@ -32,9 +28,7 @@ def parseTerminalsAndNonTerminals(rows: List[str]):
 
   return [terminals, nonTerminals]
 
-
-
-if __name__ == "__main__":
+def main():
   rows: List[str] = []
   n = int(input("Enter the number of rows: "))
   for i in range(n):
@@ -43,3 +37,6 @@ if __name__ == "__main__":
   [terminals, nonTerminals] = parseTerminalsAndNonTerminals(rows)
   print("Terminal: ", ', '.join(terminals))
   print("Non terminal: ", ', '.join(nonTerminals))
+
+if __name__ == "__main__":
+  main()

@@ -15,11 +15,7 @@
 # two => FIRST = {a, b}, FOLLOW = {$, )}
 
 from math import prod
-import sys
 from typing import List
-
-sys.path.append('.')
-
 import TerminalesYNoTerminales.TerminalesYNoTerminales as tnt
 import Utils.SplitRows as sr
 
@@ -131,7 +127,7 @@ class FirstAndFollow:
     self.LL1 = True
     return True
 
-if __name__ == "__main__":
+def main():
   rows: List[str] = []
   n = int(input("Enter the number of rows: "))
   for i in range(n):
@@ -145,3 +141,6 @@ if __name__ == "__main__":
   firstAndFollow.calculateFollows()
   print()
   print(firstAndFollow.resultToString())
+
+if __name__ == "__main__":
+  main()

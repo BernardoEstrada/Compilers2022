@@ -5,7 +5,7 @@
 
 import os
 from sys import argv
-import TerminalesYNoTerminales as tnt
+import TerminalesYNoTerminales.TerminalesYNoTerminales as tnt
 NUMBER_OF_TESTS = 5
 
 def runSingleTest(i: int):
@@ -35,9 +35,12 @@ def runSingleTest(i: int):
     print("  ExpectedNonTerminal:\t", expectedNonTerminal)
     print("  OutputNonTerminal:\t", nonTerminal)
 
-if __name__ == "__main__":
-  if(len(argv) == 2 and argv[1].isdigit()):
+def test():
+  if (len(argv) == 2 and argv[1].isdigit()):
     runSingleTest(int(argv[1]))
   else:
     for i in range(1, NUMBER_OF_TESTS + 1):
       runSingleTest(i)
+
+if __name__ == "__main__":
+  test()
