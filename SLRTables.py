@@ -15,11 +15,58 @@ class SLRTables:
     ISections = [i0]
     for iSection in ISections:  
       for p in iSection.lookahead:
-        newI = iSection.getFollowingI(p, i)
-        if newI not in ISections:
-          ISections.append(newI)
-          i += 1
-      breakpoint()
+        if p != '$':
+          newI = iSection.getFollowingI(p, i)
+          try:
+            existingI = ISections.index(newI)
+            iSection.paths[p] = existingI
+          except:
+            ISections.append(newI)
+            i += 1
+    self.ISections = ISections
+    self.fnf = fnf
+
+  def generateTable(self):
+    actions: List[List[str]] = []
+    for i, iSection in enumerate(self.ISections):
+      actions.append([])
+      for p in [*self.fnf.t, '$']:
+        try:
+          shift = str(iSection.paths[p])
+          shift = 'S'+shift if shift != 'ACC' else shift
+          actions[i].append(shift)
+        except:
+          actions[i].append('  ')
+
+    goto: List[List[str]] = []
+    for i, iSection in enumerate(self.ISections):
+      goto.append([])
+      for p in self.fnf.nt:
+        try:
+          shift = 'S'+str(iSection.paths[p])
+          goto[i].append(shift)
+        except:
+          goto[i].append('  ')
+
+    self.actions = actions
+    self.goto = goto
+    return goto, actions
+
+  def printISections(self):
+    for iSection in self.ISections:
+      print(iSection)
+  def printTable(self):
+    table = 'I ||  '
+    table += ' |  '.join([*self.fnf.t, '$']) + '  || '
+    table += ' |  '.join(self.fnf.nt) + '\n'
+    table += '-'*(len(table)) + '\n'
+
+    for i in range(len(self.ISections)):
+      table += str(i) + ' || '
+      table += ' | '.join(self.actions[i])
+      table += ' || ' if self.actions[i][-1] == "ACC" else '  || '
+      table += ' | '.join(self.goto[i]) + '\n'
+    print(table)
 
 class IProd:
   def __init__(self, productor, product, fnf: fyf.FirstAndFollow, dot = 0):
@@ -40,7 +87,7 @@ class IProd:
     for i, p in enumerate(self.product):
       if i == self.dot: res += " ."
       res += " " + p
-      if self.final: res += " ."
+    if self.final: res += " ."
     return res
 
   def __eq__(self, __o: object) -> bool:
@@ -96,7 +143,9 @@ class I:
     for productor in self.nextProductors:
       if productor != '$' and not self.done and productor not in self.fnf.t:
         for prod in self.fnf.productions[productor]:
-            self.prods.append(IProd(productor, prod, self.fnf))
+          newProd = IProd(productor, prod, self.fnf)
+          if newProd not in self.prods:
+            self.prods.append(newProd)
       elif productor == '$':
         self.paths['$'] = 'ACC'
     
@@ -109,7 +158,7 @@ class I:
   def getFollowingI(self, token, n):
     newProds = []
     for prod in self.prods:
-      if prod.getNextToken() == token:
+      if prod.getNextToken() == token and prod not in newProds:
         newProds.append(copy.deepcopy(prod))
     for p in newProds:
       p.moveAhead()
@@ -122,14 +171,18 @@ class I:
     return newI
 
 if __name__ == "__main__":
-  # rows: List[str] = []
-  # n = int(input("Enter the number of rows: "))
-  # for i in range(n):
-  #   rows.append(input())
-  n = 2
-  rows = [
-    "S -> S + S",
-    "S -> s"
-  ]
+  rows: List[str] = []
+  stringTests: List[str] = []
+  nums = input("Enter the number of rows: ").split()
+  n = int(nums[0])
+  strs = int(nums[1])
+  for i in range(n):
+    rows.append(input())
+  for i in range(strs):
+    stringTests.append(input())
+
+  print()
   table = SLRTables(rows)
+  table.generateTable()
+  table.printTable()
 
