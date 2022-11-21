@@ -30,6 +30,7 @@ To run a specific test run:
 
 ```bash
 python tests/<ModuleToTest>
+```
 
 ## Author
 
