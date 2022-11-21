@@ -35,6 +35,7 @@ def main():
     rows.append(input())
 
   [terminals, nonTerminals] = parseTerminalsAndNonTerminals(rows)
+  print()
   print("Terminal: ", ', '.join(terminals))
   print("Non terminal: ", ', '.join(nonTerminals))
 

@@ -14,9 +14,8 @@
 # A => FIRST = {(, a, b}, FOLLOW = {$, )}
 # two => FIRST = {a, b}, FOLLOW = {$, )}
 
-from math import prod
 from typing import List
-import TerminalesYNoTerminales.TerminalesYNoTerminales as tnt
+import TerminalesYNoTerminales as tnt
 import Utils.SplitRows as sr
 
 class FirstAndFollow:

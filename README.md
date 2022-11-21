@@ -1,11 +1,36 @@
 # Compilers Hand-ins
 
-
-To execute, make sure you have python3 installed and run the following command on the root folder:
+To run terminals and non terminals run:
 
 ```bash
-python3 main.py
+python TerminalesYNoTerminales.py [< path/to/file.txt]
 ```
 
+If `< file.txt` is not included, you will be asked for inputs
+
+Same for firsts and follows:
+
+```bash
+python FirstsAndFollows.py
+```
+
+And also same for SLR tables:
+
+```bash
+python SLRTable.py
+```
+
+To run all tests run:
+
+```bash
+python test_all.py
+```
+
+To run a specific test run:
+
+```bash
+python tests/<ModuleToTest>
+
 ## Author
+
 Bernardo Estrada - 2022

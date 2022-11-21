@@ -5,22 +5,22 @@
 
 import os
 from sys import argv
-import FirstsYFollows.FirstsYFollows as ff
+import FirstsYFollows as ff
 import re
 NUMBER_OF_TESTS = 5
 
 
-def runSingleTest(i: int):
+def runSingleTest(i: int, indent = False):
   dir_path = os.path.dirname(os.path.realpath(__file__))
   if i > NUMBER_OF_TESTS or i <= 0:
     print("Test number out of range")
     return
 
-  with open(dir_path + '/test_cases_2/input%i.txt' % i) as f:
+  with open(dir_path + '/../test_cases/2/input%i.txt' % i) as f:
     lines = f.read().strip().splitlines()
   lines.pop(0)
 
-  with open(dir_path + '/test_cases_2/output%i.txt' % i) as f:
+  with open(dir_path + '/../test_cases/2/output%i.txt' % i) as f:
     expected = f.read().strip().splitlines()
 
   expectedObj = {}
@@ -57,19 +57,20 @@ def runSingleTest(i: int):
       correct = False
       break
 
+  prefix = "  " if indent else ""
   if correct:
-    print("Test %i passed" % i)
+    print(prefix + "Test %i passed" % i)
   else:
-    print("Test %i failed" % i)
-    print("  Expected:", expected)
-    print("  Output:  ", result)
+    print(prefix + "Test %i failed" % i)
+    print(prefix + "  Expected:", expected)
+    print(prefix + "  Output:  ", result)
 
-def test():
+def test(indent = False):
   if (len(argv) == 2 and argv[1].isdigit()):
     runSingleTest(int(argv[1]))
   else:
     for i in range(1, NUMBER_OF_TESTS + 1):
-      runSingleTest(i)
+      runSingleTest(i, indent)
 
 if __name__ == "__main__":
   test()
